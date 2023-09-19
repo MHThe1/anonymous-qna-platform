@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webpage Screenshot</title>
+    <link rel="stylesheet" type="text/css" href="static/css/styles.css">
+    <script src="{{ url_for('static', filename='js/screenshot.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+    <br />
+    <br />
+    <div class="container" align="center">
+        <button class="btn btn-danger" id="take-screenshot">Take Screenshot</button>
+        <br />
+        <br />
+        <div class="btn btn-outline-light"><a id="download-link" style="display: none;">Download Screenshot</a></div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div id="mobile-container">
+        <!-- Content of your webpage goes here -->
+        <div id="content">
+            <div class="centerbox">
+                <div class="chatbox">
+                    <div class="drop-shadow"></div>
+                    <div class="top-half">
+                        <p class="question-text"># {{asking}}</p>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="centerbox">
+                <div class="chatbox">
+                    <div class="top-half">
+                        <p class="gradient-text">{{friendlytext}}</p>
+                    </div>
+                    <div class="bottom-half">
+                        <p class="answer-text">{{myreply}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for taking and saving screenshots -->
+    <script type="module" src="/static/js/screenshot.js"></script>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+</body>
+
+</html>

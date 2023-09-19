@@ -1,0 +1,62 @@
+{% extends 'header.html' %}
+{% block title %} Devloper's Portfolio | {% endblock title %}
+{% block body %}
+<link rel="stylesheet" href="/static/css/devport.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+  integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+  crossorigin="anonymous" />
+
+<div class="container-fluid">
+  <div class="about-left">
+    <div class="about-left-content">
+      <div>
+        <div class="shadow">
+          <div class="about-img">
+            <img src="/static/images/dp.jpg" alt="about image">
+          </div>
+        </div>
+
+        <h2>Mehedi Hasan<br>Tanvir</h2>
+        <h3>Student | Undergrad</h3>
+      </div>
+
+      <ul class="icons">
+        <li><a href="https://www.facebook.com/MHThe1/" target="_blank" rel="noopener"><i
+              class="fab fa-facebook-f"></i></a></li>
+        <li><a href="https://twitter.com/mh_the1" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/mehedi-hasan-tanvir-5507b0228/" target="_blank" rel="noopener"><i
+              class="fab fa-linkedin"></i></a></li>
+        <li><a href="https://www.instagram.com/mhthe1/" target="_blank" rel="noopener"><i
+              class="fab fa-instagram"></i></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container-fluid about-right">
+    <h1>hi<span>!</span></h1>
+    <h2>About me in short</h2>
+    <div class="about-btns">
+      <button type="button" class="cbtn btn-pink">resume</button>
+      <button type="button" class="cbtn btn-white">projects</button>
+    </div>
+
+    <div class="about-para">
+      <p>Carpe diem is one of my defining features. I worry less about tomorrow and enjoy today. Who knows if I'll get to enjoy tomorrow in all its glory!</p>
+      <p>I lived throughout the country in my childhood, Dhaka, Khagrachari, random places in Narshingdi. Then kinda
+        settled in Kishoreganj for a while. Went to Kishoreganj Govt. Boys High School.
+        Came to Dhaka for college, went to BAF Shaheen College, Dhaka. Then enrolled into
+        BRAC University's CSE department to complete undergrad. Might switch to CS pretty soon
+        though as I find EEE courses tiring.
+      </p>
+      <p>
+        I have learned C and C++ by myself, university helped me learn Python. I did a little of wap design in high
+        school, so I had prior knowledge of HTML, CSS and little JavaScript. I'm currently trying out Flask and Django.
+        I plan on learning React.JS and then Flutter & Dart. However, I want to dive deep into the world of AI as it
+        truly fascinates me.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+{% endblock body %}

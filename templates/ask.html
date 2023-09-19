@@ -1,0 +1,68 @@
+{% extends 'header.html' %}
+{% block title %} Adding a prompt | {% endblock title %}
+{% block body %}
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="centerbox">
+                <div class="chatbox">
+                    <div class="top-half">
+                        <form action="" method="POST" class="row g-3 needs-validation" novalidate>
+                            <div class="input-group mb-3">
+                                <div class="has-validation form-floating">
+                                    <input type="text" class="form-control" id="asking" name="asking"
+                                        placeholder="Ask away!" required>
+                                    <label for="fullname">Ask away!</label>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please provide a prompt!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    {% if current_user.is_authenticated %}
+    <p></p>
+    {% else %}
+    <div class="row">
+        <div class="col-md-12">
+            New here? <a href="{{url_for('signup')}}">Register</a>
+            <br />
+            Already have an account? <a href="{{url_for('login')}}">Log in</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+{% endblock body %}

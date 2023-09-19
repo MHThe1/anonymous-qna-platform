@@ -1,0 +1,47 @@
+{% extends 'header.html' %}
+{% block title %} Prompts | {% endblock title %}
+{% block body %}
+{% if askcount == 0 %}
+<div class="container my-5 alert alert-danger" role="alert">
+    You have not asked any questions or added any prompts! <a href="{{ url_for('ask') }}">Ask now</a>
+</div>
+{% else %}
+<div class="container my-5">
+    <div class="row">
+        {% for r in asks %}
+        {% if r.username == current_user.username %}
+        <div class="col-md-4">
+            <div class="centerbox mb-3">
+                <div class="chatbox">
+                    <div class="top-half">
+                        <p class="question-text"># {{ r.asking }}</p>
+                    </div>
+                    <div class="bottom-half">
+                        <div class="form-floating">
+                            <input type="text" class="form-control"
+                                value="{{ url_for('friendly', username=current_user.username, sno=r.sno, _external=True) }}"
+                                id="copyText-{{ r.sno }}">
+                        </div>
+                        <br/>
+                        <div class="text-center">
+                            <button class="btn btn-primary" type="button"
+                                onclick="copyToClipboard('copyText-{{ r.sno }}', 'shareInstagram-{{ r.sno }}')">Copy to Clipboard</button>
+                        </div>
+                        <div class="text-center">
+                            <a href="instagram://story-camera">
+                            <button class="btn btn-success" type="button" id="shareInstagram-{{ r.sno }}" style="display: none;">
+                                Share to Instagram Story
+                            </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="line"></div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endblock body %}

@@ -1,0 +1,93 @@
+{% extends 'header.html' %}
+{% block title %} anonymous Chat | {% endblock title %}
+{% block body %}
+<br />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="centerbox">
+                <div class="chatbox">
+                    <div class="top-half">
+                        <p class="gradient-text align-right"># {{prompt}}</p><br />
+                        @{{username}}
+                    </div>
+                    <div class="bottom-half">
+                        <form action="" method="POST" class="row g-3 needs-validation" novalidate>
+                            <div class="input-group mb-3">
+                                <div class="has-validation form-floating">
+                                    <input type="text" class="form-control" id="friendlytext" name="friendlytext"
+                                        placeholder="Speak your mind!" required>
+                                    <label for="friendlytext">Speak your mind!</label>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please provide a prompt!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    {% if current_user.is_authenticated %}
+    <div align="center">
+        <div>
+            <p><a href="/ask">Add your prompt!</a></p>
+        </div>
+    </div>
+    {% else %}
+    <div align="center">
+        <div>
+            New here? <a href="{{url_for('signup')}}">Register</a>
+            <br />
+            Already have an account? <a href="{{url_for('login')}}">Log in</a>
+        </div>
+    </div>
+</div>
+</div>
+<br />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="/static/images/linkonstory.png" width="100%" height="100%">
+        </div>
+        <div class="col-md-4">
+            <img src="/static/images/exampleconvo.png" width="100%" height="100%">
+        </div>
+        <div class="col-md-4">
+            <img src="/static/images/chatoninstastory.png" width="100%" height="100%">
+        </div>
+    </div>
+</div>
+<br>
+{% endif %}
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+{% endblock body %}

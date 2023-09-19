@@ -1,0 +1,116 @@
+{% extends 'header.html' %}
+{% block title %} Home | {% endblock title %}
+{% block body %}
+{% if askcount == 0 %}
+<div class="container my-5 alert alert-danger" role="alert">
+    Your have not asked any questions or added any prompts! <a href="{{url_for('ask')}}">Ask now</a> or <a href="/guide#adding-question">Learn How</a>
+</div>
+{%elif replycount == 0 %}
+<div class="container my-5 alert alert-danger" align="center" role="alert">
+    You have not received any responses yet! Share the link(s) to your story to get replies! <a href="/guide#adding-question">Learn How</a>
+</div>
+<div align="center">
+    <a href="{{ url_for('allquestions') }}">
+        <button type="button" class="btn btn-primary btn-lg">Go to your Questions page!</button>
+    </a>
+</div>
+
+{% else %}
+
+{% if notseencount != 0 %}
+<div class="container my-5 alert alert-warning" align="center" role="alert">
+    You have not replied to <a href="/allchat"><h3><b>{{ notseencount }}</b></h3></a> message(s) yet!
+</div>
+{% endif %}
+<div class="container my-5">
+    <div class="row">
+        {% for r in replies %}
+        {% if r.username == current_user.username %}
+        {% if r.myreply == "" %}
+        <div class="col-md-4">
+            <div class="unseen-chatbox">
+                <div class="centerbox mb-3">
+                    <div class="chatbox">
+                        <div class="top-half">
+                            <p class="question-text"># {{r.asking}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="centerbox mb-3">
+                    <div class="chatbox">
+                        <div class="top-half">
+                            <p class="gradient-text">{{r.friendlytext}}</p>
+                        </div>
+                        <div class="bottom-half">
+                            <p class="answer-text">
+                            <div class="alert alert-warning" role="alert">
+                                You haven't replied to this yet!
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div align="center">
+                        <a href="/openchat/{{r.parentsno}}/{{r.sno}}">
+                            <button type="button" class="btn btn-primary btn-lg">Reply and Share Convo!</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="line"></div>
+        </div>
+            {% else %}
+            <div class="col-md-4">
+                <div class="centerbox mb-3">
+                    <div class="chatbox">
+                        <div class="top-half">
+                            <p class="question-text"># {{r.asking}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="centerbox mb-3">
+                    <div class="chatbox">
+                        <div class="top-half">
+                            <p class="gradient-text">{{r.friendlytext}}</p>
+                        </div>
+                        <div class="bottom-half">
+                            <p class="answer-text">{{r.myreply}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div align="center">
+                        <a href="/openchat/{{r.parentsno}}/{{r.sno}}">
+                            <button type="button" class="btn btn-primary btn-lg">See and Share Convo!</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="line"></div>
+            </div>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <br />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="/static/images/linkonstory.png" width="100%" height="100%">
+        </div>
+        <div class="col-md-4">
+            <img src="/static/images/exampleconvo.png" width="100%" height="100%">
+        </div>
+        <div class="col-md-4">
+            <img src="/static/images/chatoninstastory.png" width="100%" height="100%">
+        </div>
+    </div>
+</div>
+<br>
+
+
+    {% endblock body %}

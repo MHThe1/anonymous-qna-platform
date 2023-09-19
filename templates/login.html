@@ -1,0 +1,56 @@
+{% extends 'header.html' %}
+{% block title %} Log in | {% endblock title %}
+{% block body %}
+
+<div class="container">
+    <h1>Login</h1>
+    <form action="" method="POST" class="row g-3 needs-validation" novalidate>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroupPrepend">@</span>
+            <div class="has-validation form-floating">
+                <input type="text" class="form-control" id="username" name="username" aria-describedby="inputGroupPrepend" placeholder="Username" required>
+                <label for="username">Username</label>
+                <div class="invalid-feedback">
+                    <p style="margin-left:1em">Please choose a username!</p>
+                </div>
+            </div>
+        </div><br />
+        <div class="input-group mb-3">
+            <div class="has-validation form-floating">
+                <input type="password" class="form-control" id="password" name="password" aria-describedby="inputGroupPrepend" placeholder="Password" required>
+                <label for="password">Password</label>
+                <div class="invalid-feedback">
+                    Please provide a password!
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Sign in</button>
+        </div>
+    </form>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+<br>
+<h2>Don't have an account? <a href="{{url_for('signup')}}">Register</a> </h2>
+</div>
+
+{% endblock body %}

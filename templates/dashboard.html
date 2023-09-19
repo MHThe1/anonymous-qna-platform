@@ -1,0 +1,26 @@
+{% extends 'header.html' %}
+{% block title %} Dashboard | {% endblock title %}
+{% block body %}
+<br />
+<div class="centerbox">
+    <div class="chatbox bottom-half">
+        <p class="answer-text">Hi, {{current_user.fullname}} <br>
+            @{{current_user.username}}</p><br />
+        <div>
+            <p class="answer-text">You have added <a href="/ask"><b>{{ askcount }}</b></a> prompt(s)!</p>
+        </div>
+        <div>
+            <p class="answer-text">You have received <a href="/allquestions"><b>{{ replycount }}</b></a> replies!</p>
+        </div>
+        <div>
+            <p class="answer-text">You have not written back to <a href="/allchat"><b>{{ notseencount }}</b></a>
+                replies!</p>
+        </div>
+        <div class="mt-2" align="center">
+            <a href="{{url_for('logout')}}">
+                <button type="button" class="btn btn-primary btn-lg">Log out!</button>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock body %}
