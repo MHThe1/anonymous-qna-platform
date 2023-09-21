@@ -4,6 +4,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="AnnoyText">
+  <meta property="og:description" content="An anonymous texting and QNA platform">
+  <meta property="og:image" content="/static/images/socialmediathumbnail.png">
+  <meta property="og:url" content="www.annoytext.xyz">
+
+  <meta name="twitter:card" content="annoytext-an-example">
+  <meta name="twitter:title" content="AnnoyText">
+  <meta name="twitter:description" content="An anonymous texting and QNA platform">
+  <meta name="twitter:image" content="/static/images/socialmediathumbnail.png">
+  <meta name="twitter:url" content="www.annoytext.xyz">
+
+
   <script src="{{ url_for('static', filename='js/jsfiles.js') }}"></script>
   <!-- Use a single version of Bootstrap (5.3.1) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -16,7 +29,7 @@
   <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
 
 
-  <link rel="icon" href="/static/images/icon.png" type="image/x-icon"/>
+  <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon"/>
   <title>{% block title %} {% endblock title %}AnnoyText</title>
 
   <style>
@@ -116,7 +129,7 @@
             <a class="nav-link active" aria-current="page" href="/guide">Guide</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link  active" href="/ask">Add prompt</a>
+            <a class="nav-link  active" href="/ask">Add Question</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="/allquestions">Questions</a>
@@ -169,7 +182,7 @@
         <span class="badge text-bg-light rounded-pill align-text-bottom">{{ notseencount }}</span>
       </a>
       <a class="nav-link" href="/guide">Guide</a>
-      <a class="nav-link" href="/ask">Add prompt</a>
+      <a class="nav-link" href="/ask">Add Quesiton</a>
       <a class="nav-link" href="/allquestions">Questions</a>
       <a class="nav-link" href="{{url_for('logout')}}">Log out</a>
       <a class="nav-link" href="/friendly/mhthe1/1">Text the Dev</a>
@@ -203,7 +216,7 @@
           </a>
           <ul class="list-unstyled small">
             <li class="mb-2">Designed and built with love by <a href="/aboutdev">@mhthe1</a></li>
-            <li class="mb-2">Currently v1.0.0.</li>
+            <li class="mb-2">Currently v1.0.0 Alpha</li>
           </ul>
         </div>
         <div class="col-6 col-lg-2 offset-lg-1 mb-3">

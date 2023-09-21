@@ -27,29 +27,36 @@
                                 </div>
                             </div>
                             <div class="col-12">
+                                {% if username|string != current_user.username|string %}
                                 <button class="btn btn-primary" type="submit">Send</button>
-                            </div>
                         </form>
+                        {% else %}
+                        <div class="container my-5 alert alert-warning" align="center" role="alert">
+                            Wait a min!!! You can't reply to yourself!!!
+                        </div>
+                        <button class="btn btn-primary disabled">Send</button>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <br />
-    {% if current_user.is_authenticated %}
-    <div align="center">
-        <div>
-            <p><a href="/ask">Add your prompt!</a></p>
-        </div>
+</div>
+<br />
+{% if current_user.is_authenticated %}
+<div align="center">
+    <div>
+        <p><a href="/ask">Add your prompt!</a></p>
     </div>
-    {% else %}
-    <div align="center">
-        <div>
-            New here? <a href="{{url_for('signup')}}">Register</a>
-            <br />
-            Already have an account? <a href="{{url_for('login')}}">Log in</a>
-        </div>
+</div>
+{% else %}
+<div align="center">
+    <div>
+        New here? <a href="{{url_for('signup')}}">Register</a>
+        <br />
+        Already have an account? <a href="{{url_for('login')}}">Log in</a>
     </div>
+</div>
 </div>
 </div>
 <br />

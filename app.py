@@ -1,19 +1,15 @@
-from flask import Flask, render_template, url_for, redirect, flash, request, send_file, make_response
+from flask import Flask, render_template, url_for, redirect, request, send_file, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
-from datetime import datetime
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv, dotenv_values
 
 load_dotenv()
 
 app  = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("SQLALCHEMY_DATABASE_URI")
-app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+app.config['SQLALCHEMY_DATABASE_URI'] = f"{os.getenv('SQLALCHEMY_DATABASE_URI')}"
+app.config['SECRET_KEY'] = f"{os.getenv('SECRET_KEY')}"
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 app.app_context().push()
@@ -69,40 +65,46 @@ def guide():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method=='POST':
-        username = request.form['username']
-        password = request.form['password']
-        currentuser = db.session.query(User).filter_by(username=username).scalar()
-        if currentuser:
-            if bcrypt.check_password_hash(currentuser.password, password):
-                login_user(currentuser)
-                return redirect('/')
-    return render_template('login.html')
+    if current_user.is_authenticated:
+        return redirect('/')
+    else:
+        if request.method=='POST':
+            username = request.form['username']
+            password = request.form['password']
+            currentuser = db.session.query(User).filter_by(username=username).scalar()
+            if currentuser:
+                if bcrypt.check_password_hash(currentuser.password, password):
+                    login_user(currentuser)
+                    return redirect('/')
+        return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if request.method=='POST':
-        fullname = request.form['fullname']
-        email = request.form['username']
-        username = request.form['username']
-        email = request.form['username']
-        checkmail = db.session.query(User).filter_by(username=username).scalar()
-        checkuser = db.session.query(User).filter_by(username=username).scalar()
-        if checkuser == True:
-            print('Please choose another username')
-        elif checkmail == True:
-            print('Please choose another email')
-        else:
-            password = request.form['password']
-            hashed_password = bcrypt.generate_password_hash(password)
-            user = User(fullname=fullname, email=email, username=username, password=hashed_password, token=None)
-            db.session.add(user)
-            db.session.commit()
-            currentuser = db.session.query(User).filter_by(username=username).scalar()
-            login_user(currentuser)
-            return redirect('/')
+    if current_user.is_authenticated:
+        return redirect('/')
+    else:
+        if request.method=='POST':
+            fullname = request.form['fullname']
+            email = request.form['username']
+            username = request.form['username']
+            email = request.form['username']
+            checkmail = db.session.query(User).filter_by(username=username).scalar()
+            checkuser = db.session.query(User).filter_by(username=username).scalar()
+            if checkuser == True:
+                print('Please choose another username')
+            elif checkmail == True:
+                print('Please choose another email')
+            else:
+                password = request.form['password']
+                hashed_password = bcrypt.generate_password_hash(password)
+                user = User(fullname=fullname, email=email, username=username, password=hashed_password, token=None)
+                db.session.add(user)
+                db.session.commit()
+                currentuser = db.session.query(User).filter_by(username=username).scalar()
+                login_user(currentuser)
+                return redirect('/')
         
-    return render_template('register.html')
+        return render_template('register.html')
 
 @app.route('/dashboard')
 @login_required
@@ -111,16 +113,6 @@ def dashboard():
         replycount = db.session.query(db.func.sum(Asking.friendlycount)).filter(Asking.username == current_user.username).scalar()
         notseencount = Anonytext.query.filter_by(username=current_user.username, myreply="").count()
         return render_template('dashboard.html', askcount=askcount, replycount=replycount, notseencount=notseencount)
-
-@app.route('/headeronlyqolafkjoaifelkafjsedif')
-@login_required
-def headerfile():
-        notseencount = Anonytext.query.filter_by(username=current_user.username, myreply="").count()
-        return render_template('header.html', notseencount=notseencount)
-
-@app.route('/chat', methods=['GET', 'POST'])
-def chat():
-    return render_template('chat.html')
 
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
@@ -202,16 +194,12 @@ def allquestions():
 
 @app.route("/image")
 def image():
-    # Replace "image.jpg" with your image file name
     image = send_file("static/images/sampleimage.jpg")
     response = make_response(image)
     response.headers["Content-Type"] = "image/jpeg"
     response.headers["X-Instagram-Stories-Share-URL"] = "instagram-stories://share"
     return response
 
-@app.route("/test")
-def test():
-    return render_template('test.html')
 
 @app.route("/aboutdev")
 def aboutdev():
@@ -240,10 +228,6 @@ def openchat(psno, sno):
         return redirect(f'/openchat/{psno}/{sno}')
 
     return render_template('openchat.html', psno=psno, sno=sno, asking=asking, friendlytext=friendlytext, myreply=myreply, username=username)
-
-@app.route("/aboutdevalt")
-def aboutdevalt():
-    return render_template('mydesigndev.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
